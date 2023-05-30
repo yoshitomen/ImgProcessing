@@ -36,12 +36,16 @@ def UpConvert():
     sr = dnn_superres.DnnSuperResImpl_create()
     sr.readModel(model_path)
     sr.setModel("edsr", 4)
-    files = glob.glob(f"{file_path}/data/origin/*.jpg")
+    Resize_DelMeta.resize_mag(1)
+    files = glob.glob(f"{file_path}/data/resized/*")
     for file in files:
+        if file == '.DS_Store':continue #Mac特有の隠しファイル対策.
+        if not (('.jpg' in file) or ('.png' in file)):continue 
+        file_name = os.path.basename(file)
         image = cv2.imread(file)
         result = sr.upsample(image)
-        print(file)
-        cv2.imwrite(f"{file_path}/data/upconvert/{file}", result)
+        print(file_name)
+        cv2.imwrite(f"{file_path}/data/upconvert/{file_name}", result)
     #Resize_DelMeta.resize(225,225,"data/upconvert/origin","data/upconvert/origin")
     print(time.time()-start_time)
 

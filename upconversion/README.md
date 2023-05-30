@@ -10,4 +10,4 @@ dnn_superres使用のために
 のインストールが必要です。
 
 ### 使用方法
-`origin`ディレクトリに高解像化したい画像を配置してUpConvert.pyを実行すれば`upconvert/origin/`下に4倍に高解像化された画像が保存されます。
+`origin/`ディレクトリに高解像化したい画像を配置してUpConvert.pyを実行すれば`upconvert/`下に4倍に高解像化された画像が保存されます。
