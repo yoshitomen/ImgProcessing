@@ -1,0 +1,3 @@
+[submodule "Private"]
+	path = Private
+	url = git@github.com:yoshitomen/Private.git
