@@ -78,10 +78,10 @@ def learning_plot(history, epochs):
     plt.xticks(range(1,epochs+1))
     plt.ylabel('accuracy')
     plt.legend(['training', 'validation'], loc='lower right')
-    file_name = f"{file_path}/result_graph/CnnResult_{get_time_now()}.jpg"
+    file_name = f"{file_path}/result/CnnResult_{get_time_now()}.jpg"
     plt.savefig(file_name)
     print(f"SAVE FILE {file_name}")
-    file_w = open(f"{file_path}/result_graph/ParamLog_{get_time_now()}.txt",'w')
+    file_w = open(f"{file_path}/result/ParamLog_{get_time_now()}.txt",'w')
     file_w.write(f"learning_rate={learning_rate}\nbatch_size={n_batch_size}\n"\
                  +f"epochs={n_epochs}\nConv_Filt_Size={ConvFilt}\n"\
                  +f"kernel_size={kernel_size}\npooling_size={max_pooling}")

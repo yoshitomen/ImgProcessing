@@ -1,0 +1,6 @@
+learning_rate=0.5
+batch_size=50
+epochs=20
+Conv_Filt_Size=[6, 12]
+kernel_size=[(3, 3), (3, 3)]
+pooling_size=[(2, 2), (2, 2)]
