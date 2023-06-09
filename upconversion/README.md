@@ -1,13 +1,15 @@
-## README
+# README
 
-### 用途
-ガラケーや昔のカメラで撮影したサイズの小さな画像を一括で4倍のサイズに高画質化します。225*225の画像で約5秒かかるのでサイズの大きな画像や多量の処理には向きません。
+## Abstract
+You can resize some small size images taken by old camera to 4times scale. 
 
-### 環境(注意事項)
-dnn_superres使用のために  
-・opencv-python  
-・opencv-contrib-python  
-のインストールが必要です。
+It takes about 5-seconds to upconvert 225\*225 image to 900\*900.
 
-### 使用方法
-`origin/`ディレクトリに高解像化したい画像を配置してUpConvert.pyを実行すれば`upconvert/`下に4倍に高解像化された画像が保存されます。
+## Environment
+To use dnn_superres library, you need to install  
+```
+opencv-python  
+opencv-contrib-python  
+```
+## How to use
+When you place some images you want upconvert in `origin/` directly and run UpConvert.py, the upconverted images will be saved in `upconvert/`.
