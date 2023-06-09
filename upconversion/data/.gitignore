@@ -1,0 +1,9 @@
+origin/*
+resized/*
+upconvert/*
+upconvert_test/*
+
+!origin/.gitkeep
+!resized/.gitkeep
+!upconvert/.gitkeep
+!upconvert_test/.gitkeep
