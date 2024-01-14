@@ -39,5 +39,5 @@ def resize_mag_t(image, mag=4):
     return image.resize((image.width*mag, image.height*mag))
     
 if __name__ == "__main__":
-    #resize(6000,4000)
-    resize_mag(4)
+    resize(6000,4000)
+    #resize_mag(4)

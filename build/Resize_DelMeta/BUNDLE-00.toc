@@ -1,0 +1,3 @@
+([('Resize_DelMeta',
+   '/Users/yukiyoshitome/git-work/ImgProcessing/dist/Resize_DelMeta',
+   'EXECUTABLE')],)
