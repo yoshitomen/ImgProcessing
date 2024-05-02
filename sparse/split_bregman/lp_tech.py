@@ -1,37 +1,17 @@
+"""
+Reference
+Total Variation最適化(Split Bregman).
+https://lp-tech.net/articles/tkPFr?page=1
+"""
+
+import sys,os
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import random
 from PIL import Image
 
-import sys,os
-
-
-def add_noise(I_t):
-    mu = np.mean(I_t)
-    sigma = np.std(I_t)
-    dB = 3
-    I_noise = 10**(-dB/20)*np.reshape([random.gauss(mu, sigma) for i in range(np.size(I_t))], np.shape(I_t))
-    I = I_t + I_noise
-    max_I  = np.max(I)
-    min_I = np.min(I)
-    I = np.round((I - min_I)*255/(max_I - min_I))
-    return I
-
-this_file_path = os.path.dirname(sys.argv[0])
-img_path = this_file_path+"/origin_lp.jpg"
-img_load = cv2.imread(img_path)
-I_t = cv2.cvtColor(img_load, cv2.COLOR_RGB2GRAY)
-f = add_noise(I_t)
-[X_N,Y_N] = np.shape(f)
-print(X_N,Y_N)
-plt.subplot(1,2,1)
-plt.imshow(I_t, cmap="gray")
-plt.title("Original")
-plt.subplot(1,2,2)
-plt.imshow(f, cmap="gray")
-plt.title("Noisy")
-plt.show()
+[X_N, Y_N] = [0,0]
 
 def add_noise(I_t):
     mu = np.mean(I_t)
@@ -43,7 +23,6 @@ def add_noise(I_t):
     min_I = np.min(I)
     I = np.round((I - min_I)*255/(max_I - min_I))
     return I
-
 
 def Gauss_Saidel(u, d_x, d_y, b_x, b_y, f, MU, LAMBDA):
     U = np.hstack([u[:,1:X_N], np.reshape(u[-1,:],[Y_N,1] )]) + np.hstack([np.reshape(u[0,:],[Y_N,1]), u[:,0:Y_N-1]]) \
@@ -55,15 +34,27 @@ def Gauss_Saidel(u, d_x, d_y, b_x, b_y, f, MU, LAMBDA):
     G = LAMBDA/(MU + 4*LAMBDA)*(U+D+B) + MU/(MU + 4*LAMBDA)*f
     return G
     
-
 def shrink(x,y):
     t = np.abs(x) - y
     S = np.sign(x)*(t > 0) * t
     return S
 
 def main():
-    ## Load Image
-    #img_path = "Blood2.jpg"
+    global X_N;global Y_N
+    this_file_path = os.path.dirname(sys.argv[0])
+    img_path = this_file_path+"/data/origin_lp.jpg"
+    img_load = cv2.imread(img_path)
+    I_t = cv2.cvtColor(img_load, cv2.COLOR_RGB2GRAY)
+    f = add_noise(I_t)
+    [X_N,Y_N] = np.shape(f)
+    plt.subplot(1,2,1)
+    plt.imshow(I_t, cmap="gray")
+    plt.title("Original")
+    plt.subplot(1,2,2)
+    plt.imshow(f, cmap="gray")
+    plt.title("Noisy")
+    plt.savefig(this_file_path+"/data/comp_noisy.png")
+    #plt.show()
                  
     CYCLE = 100
     MU = 5.0*10**(-2)
@@ -109,14 +100,16 @@ def main():
     #plt.plot(x1, y1)
     plt.title('Reconstructed')
     #plt.axis("off")
-    plt.show()
+    plt.savefig(this_file_path+"/data/comp_reconst.png")
+    #plt.show()
     
     plt.figure()
     plt.subplot(2,1,1)
     plt.plot(f[50,:])
     plt.subplot(2,1,2)
     plt.plot(u[50,:])
-    plt.show()
+    plt.savefig(this_file_path+"/data/comp_line.png")
+    #plt.show()
 
 if __name__ == "__main__":
     main()
