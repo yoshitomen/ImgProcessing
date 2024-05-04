@@ -1,6 +1,7 @@
 """
 Reference
-Total Variation最適化(Split Bregman).
+Total Variation正則化(Split Bregmanによる最適化).
+画素値微分のL1ノルムを最小化.
 https://lp-tech.net/articles/tkPFr?page=1
 """
 
@@ -8,21 +9,12 @@ import sys,os
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-import random
 from PIL import Image
 
-[X_N, Y_N] = [0,0]
+sys.path.append(os.path.dirname(os.path.dirname(sys.argv[0])))
+import lib.lib as lib
 
-def add_noise(I_t):
-    mu = np.mean(I_t)
-    sigma = np.std(I_t)
-    dB = 3
-    I_noise = 10**(-dB/20)*np.reshape([random.gauss(mu, sigma) for i in range(np.size(I_t))], np.shape(I_t))
-    I = I_t + I_noise
-    max_I  = np.max(I)
-    min_I = np.min(I)
-    I = np.round((I - min_I)*255/(max_I - min_I))
-    return I
+[X_N, Y_N] = [0,0]
 
 def Gauss_Saidel(u, d_x, d_y, b_x, b_y, f, MU, LAMBDA):
     U = np.hstack([u[:,1:X_N], np.reshape(u[-1,:],[Y_N,1] )]) + np.hstack([np.reshape(u[0,:],[Y_N,1]), u[:,0:Y_N-1]]) \
@@ -42,19 +34,11 @@ def shrink(x,y):
 def main():
     global X_N;global Y_N
     this_file_path = os.path.dirname(sys.argv[0])
-    img_path = this_file_path+"/data/origin_lp.jpg"
+    img_path = this_file_path+"/data/origin_tv.jpg"
     img_load = cv2.imread(img_path)
     I_t = cv2.cvtColor(img_load, cv2.COLOR_RGB2GRAY)
-    f = add_noise(I_t)
+    f = lib.add_noise(I_t)
     [X_N,Y_N] = np.shape(f)
-    plt.subplot(1,2,1)
-    plt.imshow(I_t, cmap="gray")
-    plt.title("Original")
-    plt.subplot(1,2,2)
-    plt.imshow(f, cmap="gray")
-    plt.title("Noisy")
-    plt.savefig(this_file_path+"/data/comp_noisy.png")
-    #plt.show()
                  
     CYCLE = 100
     MU = 5.0*10**(-2)
@@ -84,23 +68,26 @@ def main():
             b_x = b_x + (nablax_u - d_x)
             b_y = b_y + (nablay_u - d_y)
     
-    
-    ## plot figure
-    plt.figure()
-    plt.subplot(1,2,1)
+    plt.figure(figsize=[9,3])
+    plt.subplot(1,3,1)
+    plt.gray()
+    plt.imshow(I_t, cmap="gray")
+    plt.title('Original')
+
+    plt.subplot(1,3,2)
     plt.gray()
     plt.imshow(f, cmap="gray")
     plt.title('Noisy')
     #plt.axis("off")
     
-    plt.subplot(1,2,2)
+    plt.subplot(1,3,3)
     plt.gray()
     plt.imshow(np.round(u), cmap="gray")
     #x1, y1 = [0,X_N], [50,50]
     #plt.plot(x1, y1)
     plt.title('Reconstructed')
     #plt.axis("off")
-    plt.savefig(this_file_path+"/data/comp_reconst.png")
+    plt.savefig(this_file_path+"/data/TV_reconst.png")
     #plt.show()
     
     plt.figure()
