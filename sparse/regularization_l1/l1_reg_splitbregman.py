@@ -17,7 +17,7 @@ import lib.lib as lib
 def main():
 
     this_file_path = os.path.dirname(sys.argv[0])
-    img_path = this_file_path+"/data/origin_l1norm.jpg"
+    img_path = this_file_path+"/data/origin_l1norm2.jpg"
     img_load = cv2.imread(img_path)
     I_origin = cv2.cvtColor(img_load, cv2.COLOR_RGB2GRAY)
 
@@ -43,17 +43,17 @@ def main():
     plt.gray()
     plt.imshow(I_reconst)
     plt.title("Reconstructed")
-    plt.savefig(this_file_path+"/data/L1_reconst.png")
+    plt.savefig(this_file_path+"/data/L1_reconst2.png")
     plt.close()
 
-    plt.figure()
-    plt.subplot(2,1,1)
+    plt.figure(figsize=[8,4])
+    #plt.subplot(2,1,1)
     plt.plot(I_noise[50,:])
     plt.ylim(0,250)
-    plt.subplot(2,1,2)
-    plt.plot(I_reconst[50,:])
-    plt.ylim(0,250)
-    plt.savefig(this_file_path+"/data/comp_line.png")
+    #plt.subplot(2,1,2)
+    plt.plot(I_reconst[50,:],color="r")
+    #plt.ylim(0,250)
+    plt.savefig(this_file_path+"/data/comp_line2.png")
     plt.close()
 
     LAMBDA_LIST = [5, 30, 50, 100]
@@ -69,7 +69,7 @@ def main():
         plt.gray()
         plt.imshow(I_LIST[i])
         plt.title("$\lambda = $" + str(LAMBDA_LIST[i]))
-    plt.savefig(this_file_path+"/data/L1_param.png")
+    plt.savefig(this_file_path+"/data/L1_param2.png")
 
 def SplitBregman_L1(I_noise,LAMBDA,THRE):
     B = I_noise - THRE

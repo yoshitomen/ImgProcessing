@@ -34,7 +34,7 @@ def shrink(x,y):
 def main():
     global X_N;global Y_N
     this_file_path = os.path.dirname(sys.argv[0])
-    img_path = this_file_path+"/data/origin_tv.jpg"
+    img_path = this_file_path+"/data/origin_tv2.jpg"
     img_load = cv2.imread(img_path)
     I_t = cv2.cvtColor(img_load, cv2.COLOR_RGB2GRAY)
     f = lib.add_noise(I_t)
@@ -42,7 +42,7 @@ def main():
                  
     CYCLE = 100
     MU = 5.0*10**(-2)
-    LAMBDA = 1.0*10**(-2)
+    LAMBDA = 1#1.0*10**(-2)
     TOL = 5.0*10**(-1)
 
     ## Initialization
@@ -87,15 +87,15 @@ def main():
     #plt.plot(x1, y1)
     plt.title('Reconstructed')
     #plt.axis("off")
-    plt.savefig(this_file_path+"/data/TV_reconst.png")
+    plt.savefig(this_file_path+"/data/TV_reconst2.png")
     #plt.show()
     
-    plt.figure()
-    plt.subplot(2,1,1)
+    plt.figure(figsize=[8,4])
+    #plt.subplot(2,1,1)
     plt.plot(f[50,:])
-    plt.subplot(2,1,2)
-    plt.plot(u[50,:])
-    plt.savefig(this_file_path+"/data/comp_line.png")
+    #plt.subplot(2,1,2)
+    plt.plot(u[50,:],color="r")
+    plt.savefig(this_file_path+"/data/comp_line2.png")
     #plt.show()
 
 if __name__ == "__main__":
