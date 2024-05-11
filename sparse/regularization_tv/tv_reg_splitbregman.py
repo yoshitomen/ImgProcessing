@@ -42,7 +42,7 @@ def main():
                  
     CYCLE = 100
     MU = 5.0*10**(-2)
-    LAMBDA = 1#1.0*10**(-2)
+    LAMBDA = 1.0*10**(-2)
     TOL = 5.0*10**(-1)
 
     ## Initialization

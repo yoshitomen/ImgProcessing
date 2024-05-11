@@ -29,9 +29,7 @@ F&=\frac{1}{2}\sum_i(((a_i-|b_i|)+\lambda)^2 -2(a_i-|b_i|)\lambda-\lambda^2)+\la
 \\&(\because t_i=|b_i|-\lambda, a_i\geq0)
 \end{aligned}
 $$
-となる. ただし画像のノイズ除去などスパース化したい物理量が輝度値の場合, $\mathrm{Thr}$が正の値になることを暗に仮定しているため負の値を含む場合は陽に計算できないことに注意する.
-
-以上より
+となる. 以上より
 $$
 \begin{equation}
 F=\frac{1}{2}\sum_i(a_i-t_i)^2+\mathrm{const}
