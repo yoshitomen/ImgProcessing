@@ -1,0 +1,3 @@
+[submodule "sparse/shakes/PatternFlow"]
+	path = sparse/shakes/PatternFlow
+	url = git@github.com:shakes76/PatternFlow.git
